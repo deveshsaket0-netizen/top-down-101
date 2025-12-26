@@ -31,28 +31,13 @@ func Exit() -> void:
 	pass
 	
 func Process(_delta: float) -> State:
-	if attacking:
-		player.velocity = player.direction * (player.velocity * 0.5) # half speed
-	else:
-		player.velocity = player.direction * player.velocity
-	
-	if attacking == false:
-		if player.direction == Vector2.ZERO:
-			return idle
-		else:
-			return walk
-	return null
-	
-	
-	
-'''func Process(_delta: float) -> State:
 	player.velocity -= player.velocity * decelrate_speed * _delta
 	if attacking == false:
 		if player.direction == Vector2.ZERO:
 			return idle
 		else:
 			return walk
-	return null'''
+	return null
 	
 func Physics (_delta: float) -> State:
 	return null

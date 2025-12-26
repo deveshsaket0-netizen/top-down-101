@@ -1,10 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://w5j60ixy2hwq"]
+[gd_scene load_steps=28 format=3 uid="uid://w5j60ixy2hwq"]
 
 [ext_resource type="Script" uid="uid://b604begmn8vqp" path="res://Player/Scripts/player.gd" id="1_q3lat"]
 [ext_resource type="Texture2D" uid="uid://c6cgn8ipiusap" path="res://Player/sprites/PlayerSprite02.png" id="2_8g4oa"]
 [ext_resource type="Script" uid="uid://cshjdi1xwynwb" path="res://Player/Scripts/player_state_machine.gd" id="3_tok1r"]
 [ext_resource type="Texture2D" uid="uid://cqjqlu74x2xh0" path="res://Player/sprites/AttackSprite01.png" id="3_vlldt"]
 [ext_resource type="Script" uid="uid://bc6o8r778fhwd" path="res://Player/Scripts/state_idle.gd" id="4_ddoul"]
+[ext_resource type="Texture2D" uid="uid://dk01brr3cmow8" path="res://Player/sprites/Shadow.png" id="4_j23h2"]
 [ext_resource type="Script" uid="uid://cmcblgfew4lj" path="res://Player/Scripts/state_walk.gd" id="5_8g4oa"]
 [ext_resource type="Script" uid="uid://brmgnp4fxf3ff" path="res://Player/Scripts/state_attack.gd" id="6_6ysni"]
 [ext_resource type="AudioStream" uid="uid://dyytfcocvosam" path="res://Player/Audio/SwordSwoosh.wav" id="8_s1rgi"]
@@ -399,6 +400,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_7v5gs")
 }
 autoplay = "no_attack"
+
+[node name="ShadowSprite" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(0, 0, 0, 0.58431375)
+show_behind_parent = true
+position = Vector2(0, 20)
+texture = ExtResource("4_j23h2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
