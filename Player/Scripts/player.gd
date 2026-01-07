@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 # Variables
 var cardinal_direction: Vector2 = Vector2.DOWN
+const DIR4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 var direction: Vector2 = Vector2.ZERO
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -18,13 +19,17 @@ func _ready():
 # Called every frame.
 # 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	# Get input for movement
-	direction.x = Input.get_action_strength("Right") - Input.get_action_strength("Left")
-	direction.y = Input.get_action_strength("Down") - Input.get_action_strength("Up")
-	direction = Vector2(
-		Input.get_axis("Left","Right"),
-		Input.get_axis("Up","Down")
-	)
+	direction = Vector2.ZERO
+	if Input.is_action_pressed("Right"):
+		direction.x += 1
+	elif Input.is_action_pressed("Left"):
+			direction.x -= 1
+	if Input.is_action_pressed("Down"):
+			direction.y += 1
+	elif Input.is_action_pressed("Up"):
+			direction.y -= 1
+	if direction != Vector2.ZERO:
+			direction = direction.normalized()
 
 
 	# Normalize direction to prevent faster diagonal movement
@@ -40,15 +45,12 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func SetDirection() -> bool:
-	var new_dir : Vector2 = cardinal_direction
 	if direction == Vector2.ZERO:
 		return false
 		
-	if direction.y == 0:
-		new_dir = Vector2.LEFT if direction.x < 0 else Vector2.RIGHT
-	elif direction.x == 0:
-		new_dir = Vector2.UP if direction.y < 0 else Vector2.DOWN
-	
+	var direction_id : int = int(round((direction + cardinal_direction * 0.1).angle()/TAU * DIR4.size()))
+	var new_dir = DIR4[direction_id]
+		
 	if new_dir == cardinal_direction:
 		return false
 		

@@ -25,14 +25,14 @@ func Enter() -> void:
 	audio.play()
 	attacking = true
 	
-	await get_tree().create_timer(0.75).timeout
+	await get_tree().create_timer(0.15).timeout
 	hurt_box.monitoring = true
 	pass
 	
 func Exit() -> void:
 	animation_player.animation_finished.disconnect(EndAttack)
 	attacking = false
-	await get_tree().create_timer(0.76).timeout
+	await get_tree().create_timer(0.16).timeout
 	hurt_box.monitoring = false
 	pass
 	
