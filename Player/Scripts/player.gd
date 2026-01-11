@@ -63,6 +63,7 @@ func SetDirection() -> bool:
 
 
 func UpdateAnimation(state: String) -> void:
+	print(state)
 	animation_player.play(state + "_" + AnimDirection())
 	pass
 	

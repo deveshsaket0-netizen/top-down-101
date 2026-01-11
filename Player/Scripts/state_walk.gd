@@ -6,7 +6,7 @@ class_name State_Walk extends State
 
 
 func Enter() -> void:
-	player.UpdateAnimation("idle")
+	player.UpdateAnimation("walk")
 	pass
 	
 func Exit() -> void:
@@ -28,4 +28,6 @@ func Physics (_delta: float) -> State:
 	return null
 	
 func HandleInput (_event: InputEvent) -> State:
+	if _event.is_action_pressed("Attack"):
+		return attack
 	return null
