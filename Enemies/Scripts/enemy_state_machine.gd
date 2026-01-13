@@ -13,7 +13,30 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(delta):
+	ChangeState(current_state.process(delta))
+	pass
+
+func _physics_process(delta):
+	ChangeState(current_state.physics(delta))
+	pass
+	
+	
+	
+func initialize(_enemy : Enemy) -> void:
+	states = []
+	for c in get_children():
+		if c is EnemyState:
+			states.append(c)
+			
+	for s in states:
+		s.enemy = _enemy
+		s.state_machine = self
+		s.init()
+	
+	if states.size() > 0:
+		ChangeState(states[0])
+		process_mode = Node.PROCESS_MODE_INHERIT
 	pass
 
 

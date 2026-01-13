@@ -13,6 +13,7 @@ var direction: Vector2 = Vector2.ZERO
 signal DirectiionChanged(new_direction:Vector2)
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	PlayerManager.player = self
 	state_machine.initialize(self)
 	pass  # Replace with function body if needed.
 
@@ -63,7 +64,6 @@ func SetDirection() -> bool:
 
 
 func UpdateAnimation(state: String) -> void:
-	print(state)
 	animation_player.play(state + "_" + AnimDirection())
 	pass
 	
