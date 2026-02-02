@@ -13,13 +13,14 @@ var invulnerable : bool = false
 
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
-#@onready var hitbox : HitBox = $HitBox
+@onready var hitbox : HitBox = $HitBox
 @onready var state_machine : EnemyStateMachine = $EnemyStateMachine
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_machine.initialize(self)
 	player = PlayerManager.player
+	HitBox.damaged.connect(_take_damage)
 	pass # Replace with function body.
 
 
@@ -57,3 +58,8 @@ func AnimDirection() -> String:
 		return "up"
 	else:
 		return "side"
+
+
+func _take_damage(damage: int) -> void:
+	hp -= damage
+	enemy_damaged.emit()

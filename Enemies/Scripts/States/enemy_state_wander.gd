@@ -21,16 +21,14 @@ func enter() -> void:
 	var rand = randi_range(0,3)
 	_direction = enemy.DIR4[rand]
 	enemy.velocity = _direction * wander_speed
-	enemy.set_direction(_direction)
+	#enemy.set_direction(_direction)
 	enemy.UpdateAnimation(anim_name)
-	print("Hi")
 	pass
 	
 func exit() -> void:
 	pass
 	
 func process(_delta:float) -> EnemyState:
-	print(_timer)
 	_timer -= _delta
 	if _timer <= 0:
 		return next_state

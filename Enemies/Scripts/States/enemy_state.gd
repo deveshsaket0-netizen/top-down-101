@@ -9,7 +9,6 @@ func init() -> void:
 	pass
 	
 func enter() -> void:
-	print("Hi")
 	pass
 	
 func exit() -> void:

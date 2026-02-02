@@ -17,14 +17,12 @@ func enter() -> void:
 	enemy.velocity = Vector2.ZERO
 	_timer = randf_range(state_duration_min, state_duration_max)
 	enemy.UpdateAnimation(anim_name)
-	print("Hi")
 	pass
 	
 func exit() -> void:
 	pass
 	
 func process(_delta:float) -> EnemyState:
-	print(_timer)
 	_timer -= _delta
 	if _timer <= 0:
 		return after_idle_state
