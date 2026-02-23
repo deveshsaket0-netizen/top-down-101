@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://l85qdhnmdl73"]
+[gd_scene load_steps=33 format=3 uid="uid://l85qdhnmdl73"]
 
 [ext_resource type="Script" uid="uid://8d4jmcck1o2w" path="res://Enemies/Scripts/enemy.gd" id="1_pg00x"]
 [ext_resource type="Texture2D" uid="uid://dk01brr3cmow8" path="res://Player/sprites/Shadow.png" id="1_wwfkb"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dc00781vry81h" path="res://Enemies/Scripts/States/enemy_state_wander.gd" id="5_q0lue"]
 [ext_resource type="AudioStream" uid="uid://sn1tco0dciim" path="res://Enemies/Slime/hit_00.wav" id="7_843tw"]
 [ext_resource type="Script" uid="uid://dq7e57428n4pg" path="res://Enemies/Scripts/States/enemy_state_stun.gd" id="11_t1krp"]
+[ext_resource type="Script" uid="uid://dbgkcxn6qhyq8" path="res://Enemies/Scripts/States/enemy_state_destroyed.gd" id="12_843tw"]
 [ext_resource type="Texture2D" uid="uid://8c3cg14fr8lo" path="res://Enemies/Slime/DestroySmoke.png" id="12_nsi17"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pydiu"]
@@ -722,7 +723,6 @@ _data = {
 collision_layer = 256
 collision_mask = 16
 script = ExtResource("1_pg00x")
-hp = null
 
 [node name="HurtBox" parent="." instance=ExtResource("2_2qn7y")]
 
@@ -775,6 +775,7 @@ script = ExtResource("11_t1krp")
 next_state = NodePath("../Idle")
 
 [node name="Destroy" type="Node" parent="EnemyStateMachine"]
+script = ExtResource("12_843tw")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

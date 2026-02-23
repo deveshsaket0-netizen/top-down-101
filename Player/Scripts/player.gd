@@ -6,15 +6,24 @@ var cardinal_direction: Vector2 = Vector2.DOWN
 const DIR4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 var direction: Vector2 = Vector2.ZERO
 
+var invulnerable = false
+var hp : int = 6
+var max_hp : int = 6
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hitbox: HitBox = $Hitbox
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: PlayerStateMachine = $statemachine
 
-signal DirectiionChanged(new_direction:Vector2)
+
+signal DirectionChanged(new_direction:Vector2)
+signal player_damaged(hurt_box : HurtBox)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PlayerManager.player = self
 	state_machine.initialize(self)
+	#hit_damaged.connect(_take_damage)
+	update_hp(99)
 	pass  # Replace with function body if needed.
 
 # Called every frame.
@@ -56,7 +65,7 @@ func SetDirection() -> bool:
 		return false
 		
 	cardinal_direction = new_dir
-	DirectiionChanged.emit(new_dir)
+	DirectionChanged.emit(new_dir)
 	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	return true
 		
@@ -74,3 +83,31 @@ func AnimDirection() -> String:
 		return "up"
 	else:
 		return "side"
+
+
+func _take_damage( hurt_box:HurtBox) -> void:
+	if invulnerable == true:
+		return
+	update_hp(-hurt_box.damage)
+	if hp > 0:
+		player_damaged.emit(hurt_box)
+	else:
+		player_damaged.emit(hurt_box)
+		update_hp(99)
+	
+	pass
+	
+
+
+func update_hp(delta : int) -> void:
+	hp = clampi(hp + delta, 0, max_hp)
+	pass
+	
+func make_invulnerable( _duration : float = 1.0) -> void:
+	invulnerable = true
+	hitbox.monitoring = false
+	await get_tree().create_timer( _duration ).timeout
+	invulnerable = false
+	hitbox.monitoring = true
+	pass
+	
