@@ -11,17 +11,16 @@ var next_state : State = idle
 
 @onready var idle: State = $"../Idle"
 
-func _ready() -> void:() -> void:
+func init() -> void:
 	player.player_damaged.connect(_player_damaged)
 
 func Enter() -> void:
 	print("Entering stun state")
-	player.update_animation("stun")
 	player.animation_player.animation_finished.connect(_animation_finished)
 	direction = player.global_position.direction_to(hurt_box.global_position)
 	player.velocity = direction * -knockback_speed
 	player.SetDirection()
-	
+	player.update_animation("stun")
 	player.make_invlunerable(invulnerable_duration)
 	player.effect_animation.play("damaged")
 	pass
@@ -42,7 +41,6 @@ func HandleInput (_event: InputEvent) -> State:
 	return null
 
 func _player_damaged(_hurt_box: HurtBox) -> void:
-	emit_signal("player_damaged", hurt_box)
 	print("Player damaged, entering stun")
 	hurt_box = _hurt_box
 	state_machine.change_state(self)
